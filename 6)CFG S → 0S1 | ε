@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <string.h>
+int S(char input[]);
+int belongsToLanguage(char input[]) {
+  if (strlen(input) == 0) {
+    return 1;
+  } else {
+    S(input); 
+    return strcmp(input, "S") == 0;
+  }
+}
+int S(char input[]) {
+  if (strlen(input) == 1) {
+    return 1; 
+  } else {
+    int i = 1;
+    while (i < strlen(input) - 1) {
+      if (input[0] == '0' && input[strlen(input)-1] == '1' && input[i] == 'S') {
+        printf("S -> 0S1\n");
+        input[i-1] = 'S';
+        memmove(input+i, input+i+2, strlen(input)-i-1); 
+        i = 1; 
+      } else {
+        i++; 
+      }
+    }
+  }
+}
+
+int main() {
+  char input[100];
+  printf("Enter an input string: ");
+  scanf("%s", input);
+  if (belongsToLanguage(input)) {
+    printf("Accepted\n");
+  } else {
+    printf("Rejected\n");
+  }
+  return 0;
+}
